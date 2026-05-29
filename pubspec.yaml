@@ -1,0 +1,229 @@
+name: sabores_parintins_app
+description: "A new Flutter project."
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+# In Windows, build-name is used as the major, minor, and patch parts
+# of the product and file versions while build-number is used as the build suffix.
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.11.5
+
+# Dependencies specify other packages that your package needs in order to work.
+# To automatically upgrade your package dependencies to the latest versions
+# consider running `flutter pub upgrade --major-versions`. Alternatively,
+# dependencies can be manually updated by changing the version numbers below to
+# the latest version available on pub.dev. To see which dependencies have newer
+# versions available, run `flutter pub outdated`.
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # PASSO 14 — Internacionalização (i18n).
+  # flutter_localizations: traz os delegates de Material/Cupertino/Widgets
+  # em todas as locales que o Flutter conhece. Sem isso, mensagens
+  # padrão (ex: tooltip de back button) ficariam em inglês mesmo com
+  # AppLocalizations carregado.
+  flutter_localizations:
+    sdk: flutter
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.8
+  flutter_riverpod: ^3.3.1
+  riverpod_annotation: ^4.0.2
+  dio: ^5.9.2
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  go_router: ^17.2.3
+  cached_network_image: ^3.4.1
+  google_fonts: ^8.1.0
+  freezed_annotation: ^3.1.0
+  json_annotation: ^4.11.0
+
+  # PASSO 3 — Tela de detalhe.
+  # url_launcher: abre apps externos (WhatsApp, Instagram, Maps).
+  # Sem ele, o app não consegue "sair" pra outro app no Android/iOS.
+  url_launcher: ^6.3.2
+  # share_plus: invoca a folha nativa de compartilhamento do SO.
+  # Permite enviar texto/links pra Slack, mensagens, e-mail, etc.
+  share_plus: ^11.1.0
+
+  # PASSO 11 do roadmap — Tela de Mapa.
+  # flutter_map: motor de mapa baseado em OpenStreetMap (sem API key).
+  flutter_map: ^7.0.2
+  # latlong2: tipo LatLng usado pelo flutter_map (peer obrigatório).
+  latlong2: ^0.9.1
+  # geolocator: API de localização do dispositivo (GPS, network).
+  geolocator: ^14.0.0
+  # permission_handler: fluxo nativo de permissões + openAppSettings()
+  # pra mandar o usuário pra configuração quando negou pra sempre.
+  permission_handler: ^11.4.0
+
+  # Autenticação Google (login social).
+  # v6 (não v7) bate com a API de signIn() + .authentication.idToken
+  # usada no nosso fluxo. A v7 reformulou tudo.
+  google_sign_in: ^6.3.0
+  # Armazenamento criptografado de token (Android Keystore / iOS Keychain).
+  flutter_secure_storage: ^9.2.4
+
+  # Confetti pra celebração após enviar review com sucesso.
+  # Partículas com física (gravidade, rotação) — bem mais bonito
+  # que emoji estático subindo.
+  confetti: ^0.8.0
+
+  # PASSO 13 do roadmap — Firebase Cloud Messaging (apenas config base).
+  # firebase_core: bootstrap obrigatório do SDK nativo. Qualquer outro
+  # plugin Firebase (messaging, analytics, auth) depende dele ter rodado
+  # Firebase.initializeApp() antes do runApp.
+  firebase_core: ^4.6.0
+  # firebase_messaging: cliente FCM (token de device, recebimento de
+  # mensagens em foreground/background, inscrição em tópicos).
+  firebase_messaging: ^16.1.0
+  # flutter_local_notifications: renderiza notificações locais (bandeja
+  # do sistema). Necessário porque, no Android, quando o app está em
+  # foreground o FCM entrega o RemoteMessage mas NÃO desenha nada — é
+  # este plugin que cria o NotificationChannel e mostra a notificação.
+  flutter_local_notifications: ^18.0.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # The "flutter_lints" package below contains a set of recommended lints to
+  # encourage good coding practices. The lint set provided by the package is
+  # activated in the `analysis_options.yaml` file located at the root of your
+  # package. See that file for information about deactivating specific lint
+  # rules and activating additional ones.
+  flutter_lints: ^6.0.0
+  build_runner: ^2.15.0
+  freezed: ^3.2.5
+  json_serializable: ^6.13.0
+  riverpod_generator: ^4.0.3
+
+  # PASSO 15 — branding nativo.
+  # flutter_launcher_icons: gera os ícones em todas as densidades
+  # (mipmap-mdpi/hdpi/.../xxxhdpi no Android, Assets.xcassets no iOS).
+  flutter_launcher_icons: ^0.14.3
+  # flutter_native_splash: gera as splash screens nativas (launch_screen
+  # do iOS + drawables no Android + adaptação pro Android 12+).
+  flutter_native_splash: ^2.4.6
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+
+  # PASSO 14 — habilita o gen-l10n. Toda vez que rodar `flutter pub get`
+  # ou `flutter run`, o Flutter regenera AppLocalizations a partir dos
+  # arquivos .arb em lib/l10n/.
+  generate: true
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  # assets:
+  #   - images/a_dot_burr.jpeg
+  #   - images/a_dot_ham.jpeg
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/to/resolution-aware-images
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/to/asset-from-package
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/to/font-from-package
+
+# ============================================================
+# PASSO 15 — Branding nativo (executado via comandos manuais):
+#
+#   dart run flutter_launcher_icons
+#   dart run flutter_native_splash:create
+#
+# Ambos geram arquivos nativos (android/app/src/main/res/...,
+# ios/Runner/Assets.xcassets/...). REGERAR sempre que a logo mudar.
+# ============================================================
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  # JPG não tem alpha; removendo evita warning do iOS sobre ícones com
+  # transparência (que a App Store rejeita).
+  remove_alpha_ios: true
+  # Imagem com fundo amarelo embutido — usada pelo Android pre-8 e iOS
+  # (que não têm adaptive icons).
+  image_path: "assets/icon/logo.jpg"
+
+  # Android 8+ (adaptive icons): foreground centrado no background.
+  # PNG transparente com a logo em branco → o miolo fica grande dentro
+  # do círculo (sem o padding do JPG original), sobre o fundo amarelo.
+  adaptive_icon_background: "#F5B82E"
+  adaptive_icon_foreground: "assets/icon/logo-sem-fundo.png"
+
+  # Web/Windows/macOS desligados — produto é mobile-only por enquanto.
+  web:
+    generate: false
+  windows:
+    generate: false
+  macos:
+    generate: false
+
+flutter_native_splash:
+  # Cor de fundo do splash (mesma cor primary do app, pra continuidade
+  # visual entre splash → tela amarela do header).
+  color: "#F5B82E"
+  # PNG transparente: o miolo (texto branco) flutua sobre o amarelo
+  # do `color` sem a moldura do JPG original. Usado pelo Android <12
+  # e iOS — onde a imagem fica em retângulo, sem corte.
+  image: assets/icon/logo-sem-fundo.png
+
+  # Android 12+ usa a Splash Screen API nativa: a imagem é CORTADA
+  # dentro de um círculo de ~192dp. A logo-sem-fundo é wide e o texto
+  # vazaria do círculo (P...S de "Parintins" sumiriam). Usamos a
+  # logo.jpg quadrada com padding amarelo embutido — o miolo cabe
+  # inteiro no círculo, e o fundo amarelo da JPG se mistura com o
+  # `color` (mesmo hex), parecendo uma imagem só.
+  android_12:
+    # logo-padded.jpg = canvas 800x800 amarelo com a logo centralizada
+    # em 500x500 (~62% da área). O padding em volta garante que o texto
+    # caiba inteiro dentro do círculo de ~192dp da Splash Screen API.
+    # Gerada via PowerShell + System.Drawing a partir de logo-sem-fundo.png.
+    image: assets/icon/logo-padded.jpg
+    color: "#F5B82E"
+
+  # Web/desktop desligados.
+  web: false

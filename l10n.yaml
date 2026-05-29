@@ -1,0 +1,14 @@
+# Config do gen-l10n (toolkit oficial do Flutter pra i18n).
+#
+# Cada vez que `flutter pub get` ou `flutter run` roda, o gen-l10n:
+#   1. Lê os arquivos .arb em arb-dir
+#   2. Usa template-arb-file como fonte de verdade das chaves
+#   3. Gera classes Dart em output-dir
+#
+# Mudanças aqui exigem `flutter clean` + `flutter pub get` pra propagar.
+
+arb-dir: lib/l10n
+template-arb-file: app_pt.arb
+output-localization-file: app_localizations.dart
+output-class: AppLocalizations
+output-dir: lib/l10n/gen

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "911341515805",
+    "project_id": "de-parintins-sabores",
+    "storage_bucket": "de-parintins-sabores.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:911341515805:android:ad39bbbb954d10265d02f4",
+        "android_client_info": {
+          "package_name": "br.com.sebrae.parintins.sabores_parintins_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQTgSoGly7UXLPIRJX_8pLiTGeeKTAnfg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
